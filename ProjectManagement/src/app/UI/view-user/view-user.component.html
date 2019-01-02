@@ -1,0 +1,63 @@
+<hr class="hr-solid">
+<div class="form-inline" style="width:88%;">
+  <div class="panel">
+    <div class="row">
+      <div class="col-sm-3">
+        <input type="text" class="form-inline search-width" placeholder="Search..." [(ngModel)]="search" />
+      </div>
+      <div class="col-sm-1">
+        <label>Sort:</label>
+      </div>
+      <div class="col-sm-2">
+        <!-- <button class="btn-primary">First Name</button> -->
+        <a class="btn btn-primary btn-sm" (click)="sortUsers('FirstName')">
+          <span class="glyphicon glyphicon-chevron-down"></span> First Name
+        </a>
+        <!-- <input type="button" class="col-sm-1 btn-primary btn-block" value="First Name" /> -->
+      </div>
+      <div class="col-sm-2">
+        <a class="btn btn-primary btn-sm" (click)="sortUsers('LastName')">
+          <span class="glyphicon glyphicon-chevron-down"></span> Last Name
+        </a>
+        <!-- <input type="button" class="col-sm-1 btn-primary btn-block" value="Last Name" /> -->
+      </div>
+      <div class="col-sm-1">
+        <a class="btn btn-primary btn-sm" (click)="sortUsers('EmployeeID')">
+          <span class="glyphicon glyphicon-chevron-down"></span> Id
+        </a>
+        <!-- <button class="col-sm-1 btn-primary btn-block">Id</button> -->
+      </div>
+    </div>
+    <div class="row">
+      <hr class="hr-dotted">
+    </div>
+    <div class="row" *ngFor="let item of users|userfilter:search:sortvar">
+      <div class="col-sm-6 bg-secondary">
+        {{item.EmployeeID}}
+      </div>
+      <div class="col-sm-2">
+        <a href="#" class="btn btn-primary a-btn-slide-text" routerLink="/adduser/{{item.UserID}}">
+          <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+          <span><strong>Edit</strong></span>
+        </a>
+        <!-- <button class="col-sm-1 btn-reset btn-block" routerLink="/adduser/{{item.UserID}}" >Edit</button> -->
+      </div>
+      <div class="col-sm-6 bg-secondary">
+        {{item.FirstName}}
+      </div>
+      <div class="col-sm-2">
+        <a href="#" class="btn btn-danger a-btn-slide-text" (click)="deleteUser(item.UserID)">
+          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+          <span><strong>Delete</strong></span> </a>
+        <!-- <button class="col-sm-1 btn-reset btn-block" (click)="deleteUser(item.UserID)">Delete</button> -->
+      </div>
+      <div class="col-sm-6 bg-secondary">
+        {{item.LastName}}
+      </div>
+      <hr class="hr-dotted">
+    </div>
+    <div class="row">
+      <div></div>
+    </div>
+  </div>
+</div>

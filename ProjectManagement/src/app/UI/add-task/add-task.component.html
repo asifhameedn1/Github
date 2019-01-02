@@ -1,0 +1,196 @@
+<div class="overlay" [ngStyle]="{'display': display}"></div>
+<div class="form-inline">
+  <h4>Add Task</h4>
+  <div style="width:77.5%" class="panel panel-info">
+    <div class="row" style="height:5px;"></div>
+    <div *ngIf="message!=''" class="row" style="height:3px;">
+      <div>{{message}}</div>
+    </div>
+    <div class="row" style="height:3px;"></div>
+    <div class="row">
+      <div class="col-sm-2">
+        <label for="Project">Project :</label>
+      </div>
+      <div class="col-sm-4">
+        <input type="text" class="form-control input-sm input-width" [(ngModel)]="task.ProjectName" />
+      </div>
+      <div class="col-sm-2">
+        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal" (click)="openProjectDialog()">
+          Search
+        </button>
+      </div>
+    </div>
+
+    <div class="row" style="height:3px;"></div>
+
+    <div class="row">
+      <div class="col-sm-2">
+        <label for="TaskName">Task Name:</label>
+      </div>
+      <div class="col-sm-6">
+        <input type="text" class="form-control input-sm input-width" [(ngModel)]="task.TaskName" />
+      </div>
+    </div>
+    <div class="row" style="height:3px;"></div>
+    <div class="row">
+      <div class="col-sm-2"></div>
+      <div class="col-sm-4">
+        <input type="checkbox" class="form-control" [(ngModel)]="task.SetParent" />
+        <label>Parent Task</label>
+      </div>
+    </div>
+    <div class="row" style="height:3px;"></div>
+    <div class="row">
+      <div class="col-sm-2">
+        <label for="Priority">Priority:</label>
+      </div>
+      <div class="col-sm-6">
+        <input type="range" class="slider input-width" min="0" max="100" value="0" [(ngModel)]="task.Priority" />
+      </div>
+    </div>
+    <div class="row" style="height:3px;"></div>
+    <div class="row">
+      <div class="col-sm-2">
+        <label for="Parent"> Parent Task:</label>
+      </div>
+      <div class="col-sm-4">
+        <input type="text" class="form-control input-sm input-width" [(ngModel)]="task.ParentName" />
+      </div>
+      <div class="col-sm-2">
+        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal" (click)="openParentDialog()">
+          Search
+        </button>
+      </div>
+    </div>
+    <div class="row" style="height:3px;"></div>
+    <div class="row">
+      <div class="col-sm-2">
+        <label for="StartDate"> Start Date:</label>
+      </div>
+      <div class="col-sm-6">
+        <input type="date" class="form-control input-sm input-width" [ngModel]="task.StartDate | date:'yyyy-MM-dd'" (ngModelChange)="task.startDate= $event"
+        />
+      </div>
+    </div>
+    <div class="row" style="height:3px;"></div>
+    <div class="row">
+      <div class="col-sm-2">
+        <label for="EndDate"> End Date:</label>
+      </div>
+      <div class="col-sm-6">
+        <input type="date" class="form-control input-sm input-width" [ngModel]="task.EndDate| date:'yyyy-MM-dd'" (ngModelChange)="task.endDate= $event"
+        />
+      </div>
+    </div>
+    <div class="row" style="height:3px;"></div>
+    <div class="row">
+      <div class="col-sm-2">
+        <label>User:</label>
+      </div>
+      <div class="col-sm-4">
+        <input type="text" class="form-control input-sm input-width" [(ngModel)]="task.UserName" />
+      </div>
+      <div class="col-sm-2">
+        <button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal" (click)="openUserDialog()">
+          Search
+        </button>
+      </div>
+    </div>
+    <div class="row" style="height:3px;"></div>
+    <div class="row" style="height:3px;"></div>
+    <div class="row" style="height:3px;"></div>
+    <div class="row">
+      <div class="col-sm-2"></div>
+      <div class="col-sm-1">
+        <div class="btn-group">
+          <a class="btn btn-primary btn-block btn-sm" (click)="submitTask()">
+            <span class="glyphicon glyphicon-floppy-disk"></span> {{button}}
+          </a>
+          <!-- <button class="col-xs-3 btn-primary btn-block" (click)="submitTask()">Add</button> -->
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <div class="btn-group">
+          <a class="btn btn-primary btn-sm" (click)="reset()">
+            <span class="glyphicon glyphicon-erase"></span> Cancel
+          </a>
+          <!-- <button class="col-xs-3 btn-reset btn-block">Cancel</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Project-->
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayProject}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" (click)="closeProjectDialog()"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Search Project</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="row-fluid">
+            <select [(ngModel)]="task.ProjectID" id="Project" (change)="selectProjectHandler($event)">
+              <option value="" disabled selected>select a Project</option>
+              <option *ngFor="let item of Projects" [value]="item.ProjectID">{{item.ProjectName}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" (click)="closeProjectDialog()">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal !-->
+
+<!-- Modal Parent-->
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayParent}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" (click)="closeParentDialog()"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Search Parent</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="row-fluid">
+            <select [(ngModel)]="task.ParentID" id="Parent" class="input-width" (change)="selectParentHandler($event)">
+              <option value="" disabled selected>select a Task</option>
+              <option *ngFor="let item of Parents" [value]="item.ParentID">{{item.ParentName}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" (click)="closeParentDialog()">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal !-->
+<!-- Modal User -->
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':displayUser}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" aria-label="Close" (click)="closeUserDialog()"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Search User</h4>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="row-fluid">
+            <select [(ngModel)]="task.UserID" id="User" class="input-width" (change)="selectUserHandler($event)">
+              <option value="" disabled selected>select a User</option>
+              <option *ngFor="let item of Users" [value]="item.UserID">{{item.FirstName}} {{item.LastName}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" (click)="closeUserDialog()">Close</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal !-->

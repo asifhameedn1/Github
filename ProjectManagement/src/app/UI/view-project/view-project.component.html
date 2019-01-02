@@ -1,0 +1,68 @@
+<hr class="hr-solid">
+<div class="form-inline" style="width:88%;">
+  <div class="panel">
+    <div class="row">
+      <div class="col-sm-1"><label>Project:</label></div>
+      <div class="col-sm-3">
+        <input type="text" class="form-inline" placeholder="Search..." [(ngModel)]="search" />
+      </div>
+      <div class="col-sm-2">
+        <a class="btn btn-primary btn-sm" (click)="sortProject('StartDate')">
+          <span class="glyphicon glyphicon-chevron-down"></span> Start Date
+        </a>
+      </div>
+      <div class="col-sm-2">
+        <a class="btn btn-primary btn-sm" (click)="sortProject('EndDate')">
+          <span class="glyphicon glyphicon-chevron-down"></span> End Date
+        </a>
+      </div>
+      <div class="col-sm-2">
+        <a class="btn btn-primary btn-sm" (click)="sortProject('Priority')">
+          <span class="glyphicon glyphicon-chevron-down"></span> Priority
+        </a>
+      </div>
+      <div class="col-sm-2">
+        <a class="btn btn-primary btn-sm" (click)="sortProject('Status')">
+          <span class="glyphicon glyphicon-chevron-down"></span> Status
+        </a>
+      </div>      
+    </div>
+    <div class="row" style="height:5px;"></div>
+    <div class="row" *ngFor="let item of projects|projectfilter:search:sortvar">
+      <div class="col-sm-6 bg-secondary">
+        <div>
+          <label>Project: </label> {{item.ProjectName}}
+        </div>
+        <div>
+          <label>No of Tasks: </label> {{item.NoOfTasks}}
+          <label>Completed: </label>{{item.Status}}
+        </div>
+        <div class="row">
+          <div class="col-sm-6"> <label>Start Date:</label> {{item.StartDate|date: 'dd/MM/yyyy'}}</div>
+          <div class="col-sm-6"><label>End Date:</label>{{item.EndDate|date: 'dd/MM/yyyy'}}</div>
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <label>Priority</label>
+        <div class="bg-secondary">{{item.Priority}}</div>
+      </div>
+      <div class="col-sm-2">
+        <div class="row">
+          <a class="btn btn-primary a-btn-slide-text" (click)="editProject(item.ProjectID)">
+            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+            <span><strong>Edit</strong></span>
+          </a>
+          <!-- <input type="button" class="col-sm-1 btn-reset btn-block" value="Update" (click)="editProject(item.ProjectID)" /> -->
+        </div>
+        <div class="row" style="height:5px;"></div>
+        <div class="row">
+          <a class="btn btn-danger a-btn-slide-text" (click)="suspendProject(item.ProjectID)">
+            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+            <span><strong>Suspend</strong></span> </a>
+          <!-- <input type="button" class="col-sm-1 btn-reset btn-block" value="Suspend" (click)="suspendProject(item.ProjectID)" /> -->
+        </div>
+      </div>
+      <hr class="hr-dotted">
+    </div>
+  </div>
+</div>

@@ -1,0 +1,82 @@
+<div class="form-inline" style="width:88%;">
+    <div class="panel">
+        <div class="row">
+            <div class="col-sm-2">
+                <label for="ParentTask">Project:</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="text" class="form-inline" placeholder="Project" [(ngModel)]="project" />
+            </div>
+        </div>
+        <div class="row" style="height:5px;"> </div>
+        <div class="row">            
+            <div class="col-sm-1">
+                <label>Sort:</label>
+            </div>
+            <div class="col-sm-2">
+                <a class="btn btn-primary btn-sm" (click)="onSortChange('StartDate')">
+                    <span class="glyphicon glyphicon-chevron-down"></span> Start Date
+                </a>
+                <!-- <input type="button" class="btn btn-primary btn-sm" value="Start Date" (click)="onSortChange('StartDate')"> -->
+            </div>
+            <div class="col-sm-2">
+                <a class="btn btn-primary btn-sm" (click)="onSortChange('EndDate')">
+                    <span class="glyphicon glyphicon-chevron-down"></span> End Date
+                </a>
+                <!-- <input type="button" class="btn btn-primary btn-sm" value="End Date" (click)="onSortChange('EndDate')"> -->
+            </div>
+            <div class="col-sm-2">
+                <a class="btn btn-primary btn-sm" (click)="onSortChange('Priority')">
+                    <span class="glyphicon glyphicon-chevron-down"></span> Priority
+                </a>
+                <!-- <input type="button" class="btn btn-primary btn-sm" value="Priority" (click)="onSortChange('Priority')"> -->
+            </div>
+            <div class="col-sm-2">
+                <a class="btn btn-primary btn-sm" (click)="onSortChange('Status')">
+                    <span class="glyphicon glyphicon-chevron-down"></span> Status
+                </a>
+                <!-- <input type="button" class="btn btn-primary btn-sm" value="Status" (click)="onSortChange('Status')"> -->
+            </div>
+        </div>
+    </div>
+    <h4>View Task</h4>
+    <div style="width:88%" class="panel panel-info">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Task</th>
+                    <th scope="col">Parent Task</th>
+                    <th scope="col">Priority</th>
+                    <th scope="col">Start Date</th>
+                    <th scope="col">End Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of tasks|taskfilter:project:taskName">
+                    <td>
+                        {{item.TaskName}}
+                    </td>
+                    <td>{{item.ParentName}}</td>
+                    <td>{{item.Priority}}</td>
+                    <td>{{item.StartDate|date: 'dd/MM/yyyy'}}</td>
+                    <td>{{item.EndDate|date: 'dd/MM/yyyy'}}
+                    </td>
+                    <td>
+                        <!-- <input type="button" class="btn-edit" value="Edit" routerLink="/edittask"> -->
+                        <a class="btn btn-primary a-btn-slide-text" routerLink="/addtask/{{item.ID}}">
+                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                            <span><strong>Edit</strong></span>
+                        </a>
+                    </td>
+                    <td>
+                        <a class="btn btn-danger a-btn-slide-text" (click)="endTask(item.ID)">
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                            <span><strong>End Task</strong></span> </a>
+                        <!-- <input type="button" value="x Delete" class="btn btn-danger"/> -->
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

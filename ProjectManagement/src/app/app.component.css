@@ -1,0 +1,17 @@
+.navBody{
+    padding: 9px 10px; 
+    border-radius:  3px;
+    width: 90%;
+}
+
+.navContent{
+    padding:9px 10px;
+    min-height: 380px;
+}
+
+.panel-page{
+    margin:autp;
+    padding: 9px 110px;
+    border-color:#bce8f1;
+    width:90%;
+}
